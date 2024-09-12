@@ -20,7 +20,7 @@ import java.util.List;
 public class ManagerController {
 
     private final ManagerService managerService;
-    private final JwtUtil jwtUtil;
+    //JWT를 Service쪽으로 이동
 
     @PostMapping("/todos/{todoId}/managers")
     public ResponseEntity<ManagerSaveResponse> saveManager(
@@ -37,13 +37,13 @@ public class ManagerController {
     }
 
     @DeleteMapping("/todos/{todoId}/managers/{managerId}")
-    public void deleteManager(
-            @RequestHeader("Authorization") String bearerToken,
+    public ResponseEntity<Void> deleteManager(
+            //JWT 토큰을 직접 추출하는 @RequestHeader("Authorization")대신 @Auth를 사용
+            @Auth AuthUser authUser,
             @PathVariable long todoId,
             @PathVariable long managerId
     ) {
-        Claims claims = jwtUtil.extractClaims(bearerToken.substring(7));
-        long userId = Long.parseLong(claims.getSubject());
-        managerService.deleteManager(userId, todoId, managerId);
+        managerService.deleteManager(authUser.getId(), todoId, managerId);
+        return ResponseEntity.noContent().build();
     }
 }
