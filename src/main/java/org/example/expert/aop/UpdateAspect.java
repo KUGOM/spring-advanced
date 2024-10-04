@@ -21,7 +21,7 @@ public class UpdateAspect {
         this.httpServletRequest = httpServletRequest;
     }
 
-    @Pointcut("execution(* org.example.expert.domain.comment.controller.*.*(..)) || execution(* org.example.expert.domain.user.controller.*.*(..))")
+    @Pointcut("execution(* org.example.expert.domain.comment.controller.CommentAdminController.deleteComment(..)) || execution(* org.example.expert.domain.user.controller.UserAdminController.changeUserRole(..))")
     public void serviceLayer() {}
 
     @Before("serviceLayer()")

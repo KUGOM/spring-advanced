@@ -50,6 +50,7 @@ public class TodoService {
 
     public Page<TodoResponse> getTodos(int page, int size) {
         Pageable pageable = PageRequest.of(page - 1, size);
+        //페이지를 sql에서 처리할떄 오프셋이 0부터 시작하기 떄문
 
         Page<Todo> todos = todoRepository.findAllByOrderByModifiedAtDesc(pageable);
 

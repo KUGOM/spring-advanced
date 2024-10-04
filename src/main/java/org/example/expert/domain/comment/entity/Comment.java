@@ -21,7 +21,7 @@ public class Comment extends Timestamped {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)// LAZY는 지연로딩
     @JoinColumn(name = "todo_id", nullable = false)
     private Todo todo;
 
